@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Lê Quang Hoàng — Software Engineering Student with hands-on experience in web development, client consulting, sales, and AI training. Building a career across web, business, and AI.">
+<meta name="keywords" content="Software Engineering Student, Web Developer, Business Consultant, AI Training, Ho Chi Minh City, Vietnam">
+<meta name="author" content="Lê Quang Hoàng">
+<title>Lê Quang Hoàng — Software Engineering Student</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loader" id="loader">
+  <div class="loader-content">
+    <div class="loader-logo">LQH</div>
+    <div class="loader-bar-track"><div class="loader-bar-fill" id="loaderBarFill"></div></div>
+    <div class="loader-status" id="loaderStatus">booting workspace…</div>
+  </div>
+</div>
+
+<div class="bg-layer">
+  <div class="bg-grid"></div>
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+  <div class="bg-blob bg-blob-3"></div>
+  <div class="bg-noise"></div>
+</div>
+
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#home" class="nav-logo">
+      <span class="nav-logo-mark">H</span>
+      Lê Quang Hoàng
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#about" class="nav-link" data-link>About</a></li>
+      <li><a href="#experience" class="nav-link" data-link>Experience</a></li>
+      <li><a href="#projects" class="nav-link" data-link>Projects</a></li>
+      <li><a href="#skills" class="nav-link" data-link>Skills</a></li>
+      <li>
+        <button class="nav-kbd-btn" id="cmdkTrigger" aria-label="Open command palette">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span class="nav-kbd-keys"><kbd>Ctrl</kbd><kbd>K</kbd></span>
+        </button>
+      </li>
+      <li><a href="#contact" class="nav-cta" data-link>Contact</a></li>
+    </ul>
+  </div>
+  <div class="nav-progress" id="navProgress"></div>
+</nav>
+
+<!-- COMMAND PALETTE -->
+<div class="cmdk-overlay" id="cmdkOverlay">
+  <div class="cmdk-panel" id="cmdkPanel" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmdk-input-row">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="cmdkInput" class="cmdk-input" placeholder="Jump to a section, or type a command…" autocomplete="off" spellcheck="false">
+      <kbd class="cmdk-esc">Esc</kbd>
+    </div>
+    <div class="cmdk-list" id="cmdkList"></div>
+  </div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+
+  <!-- Vertical social rail (desktop only) -->
+  <div class="hero-social-rail">
+    <a href="https://github.com/lqhoang01" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+    </a>
+    <a href="mailto:lequanghoang1001@gmail.com" aria-label="Email">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </a>
+    <span class="hero-social-line"></span>
+  </div>
+
+  <div class="container">
+    <div class="hero-grid">
+
+      <div class="hero-text">
+        <div class="hero-badge"><span class="blip"></span> Available for Remote Work</div>
+
+        <h1 class="hero-name">Lê Quang Hoàng</h1>
+        <p class="hero-role">Software Engineering Student</p>
+
+        <p class="hero-desc">
+          Software Engineering student building practical web products and exploring applied AI. I work across front-end development, client consulting, and AI training — with a habit of learning fast and shipping clean, working solutions.
+        </p>
+
+        <div class="hero-role-pills">
+          <span class="role-pill">Web Developer</span>
+          <span class="role-pill">AI Enthusiast</span>
+          <span class="role-pill">Problem Solver</span>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="LeQuangHoang.pdf" download class="btn btn-outline">Download CV</a>
+          <a href="#contact" class="btn btn-ghost">Contact →</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-num">9<span class="unit">+</span></span>
+            <span class="hero-stat-label">Years team leadership</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">3</span>
+            <span class="hero-stat-label">Fields worked across</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">2025</span>
+            <span class="hero-stat-label">Started freelancing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIGNATURE 3D WORKSTATION -->
+      <div class="hero-3d">
+        <div class="workstation-scene" id="workstationScene">
+
+          <!-- RGB ambient glow cast onto the surroundings -->
+          <div class="ws-rgb-ambient" id="wsRgbAmbient"></div>
+
+          <!-- Ambient floating dust particles, purely decorative -->
+          <div class="ws-particles">
+            <span class="ws-particle p1"></span>
+            <span class="ws-particle p2"></span>
+            <span class="ws-particle p3"></span>
+            <span class="ws-particle p4"></span>
+            <span class="ws-particle p5"></span>
+          </div>
+
+          <div class="workstation-rig" id="workstationRig">
+
+            <!-- Desk surface (perspective floor) -->
+            <div class="ws-desk">
+              <div class="ws-desk-top"></div>
+              <div class="ws-desk-grain"></div>
+              <div class="ws-desk-rgb-strip" id="wsRgbStrip"></div>
+            </div>
+
+            <!-- Soft contact shadow under whole setup -->
+            <div class="ws-contact-shadow"></div>
+
+            <!-- Desk lamp -->
+            <div class="ws-lamp">
+              <div class="ws-lamp-base"></div>
+              <div class="ws-lamp-arm-lower"></div>
+              <div class="ws-lamp-arm-upper"></div>
+              <div class="ws-lamp-head">
+                <div class="ws-lamp-bulb" id="wsLampBulb"></div>
+              </div>
+              <div class="ws-lamp-cone" id="wsLampCone"></div>
+              <div class="ws-desk-illumination"></div>
+            </div>
+
+            <!-- Monitor -->
+            <div class="ws-monitor">
+              <div class="ws-monitor-back"></div>
+              <div class="ws-monitor-screen">
+                <div class="vscode">
+                  <div class="vscode-titlebar">
+                    <span class="vscode-dot red"></span>
+                    <span class="vscode-dot yellow"></span>
+                    <span class="vscode-dot green"></span>
+                    <span class="vscode-filename">index.html — portfolio</span>
+                  </div>
+                  <div class="vscode-body">
+                    <div class="vscode-sidebar">
+                      <div class="vscode-icon active"></div>
+                      <div class="vscode-icon"></div>
+                      <div class="vscode-icon"></div>
+                      <div class="vscode-icon"></div>
+                      <div class="vscode-icon"></div>
+                    </div>
+                    <div class="vscode-filetree">
+                      <div class="vft-item open">▾ portfolio</div>
+                      <div class="vft-item indent">▾ assets</div>
+                      <div class="vft-item indent2">images/</div>
+                      <div class="vft-item indent">▾ css</div>
+                      <div class="vft-item indent2">style.css</div>
+                      <div class="vft-item indent">▾ js</div>
+                      <div class="vft-item indent2">script.js</div>
+                      <div class="vft-item indent2 active-file">index.html</div>
+                      <div class="vft-item indent">README.md</div>
+                    </div>
+                    <div class="vscode-editor">
+                      <div class="vscode-tabs">
+                        <span class="vtab active">script.js</span>
+                        <span class="vtab">index.html</span>
+                      </div>
+                      <div class="vscode-code" id="vscodeCode"></div>
+                    </div>
+                  </div>
+                  <div class="vscode-statusbar">
+                    <span><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> main</span>
+                    <span class="vs-right">UTF-8 · LF · JavaScript</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ws-monitor-glow" id="wsMonitorGlow"></div>
+            </div>
+            <div class="ws-monitor-stand"></div>
+            <div class="ws-monitor-base"></div>
+
+            <!-- Terminal window, floating beside the monitor -->
+            <div class="ws-terminal">
+              <div class="ws-terminal-bar">
+                <span class="vscode-dot red"></span>
+                <span class="vscode-dot yellow"></span>
+                <span class="vscode-dot green"></span>
+                <span class="ws-terminal-title">zsh — hoang@dev</span>
+              </div>
+              <div class="ws-terminal-body" id="terminalBody"></div>
+            </div>
+
+            <!-- Keyboard -->
+            <div class="ws-keyboard">
+              <div class="ws-keyboard-rows" id="keyboardRows"></div>
+            </div>
+
+            <!-- Mouse -->
+            <div class="ws-mouse"></div>
+
+            <!-- Coffee cup (small human detail) -->
+            <div class="ws-cup">
+              <div class="ws-cup-steam"></div>
+            </div>
+
+            <!-- Notebook with pen -->
+            <div class="ws-notebook">
+              <div class="ws-notebook-lines"></div>
+              <div class="ws-notebook-pen"></div>
+            </div>
+
+            <!-- Sticky notes -->
+            <div class="ws-sticky ws-sticky-1">npm run dev</div>
+            <div class="ws-sticky ws-sticky-2">fix hero bug</div>
+
+          </div>
+        </div>
+        <p class="hero-3d-caption">Move your cursor — this workspace responds in real time.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <a href="#about" class="hero-scroll-indicator" aria-label="Scroll down">
+    <span class="hero-scroll-track"><span class="hero-scroll-dot"></span></span>
+    <span class="hero-scroll-label">Scroll Down</span>
+  </a>
+</section>
+
+<!-- TECH I USE -->
+<section class="tech-bar">
+  <div class="container">
+    <div class="tech-bar-row reveal">
+      <span class="tech-bar-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        Tech I Use
+      </span>
+      <div class="tech-bar-track">
+        <span class="tech-chip"><span class="tech-chip-icon html">5</span>HTML5</span>
+        <span class="tech-chip"><span class="tech-chip-icon css">3</span>CSS3</span>
+        <span class="tech-chip"><span class="tech-chip-icon js">Js</span>JavaScript</span>
+        <span class="tech-chip"><span class="tech-chip-icon wp">W</span>WordPress</span>
+        <span class="tech-chip"><span class="tech-chip-icon wf">⬡</span>Webflow</span>
+        <span class="tech-chip"><span class="tech-chip-icon figma">F</span>Figma</span>
+        <span class="tech-chip"><span class="tech-chip-icon git">G</span>Git</span>
+        <span class="tech-chip"><span class="tech-chip-icon gh">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </span>GitHub</span>
+        <span class="tech-chip"><span class="tech-chip-icon ai">AI</span>ChatGPT · Claude AI</span>
+        <span class="tech-chip"><span class="tech-chip-icon ga">GA</span>Google Analytics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">About</div>
+      <h2 class="section-title">The person behind the code</h2>
+      <p class="section-lead">Not a resume rewrite — the honest version of how I think, work, and where I'm headed.</p>
+    </div>
+
+    <div class="about-layout reveal">
+      <div class="about-visual">
+        <div class="about-photo-frame">
+          <img src="profile.jpg" alt="Lê Quang Hoàng" onerror="this.style.display='none';">
+          <div class="about-photo-caption">
+            <div>
+              <div class="about-photo-name">Lê Quang Hoàng</div>
+              <div class="about-photo-loc">Ho Chi Minh City, VN</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-meta-row">
+          <div class="about-meta-pill"><span class="num">9+</span><span class="lbl">YRS LEADING</span></div>
+          <div class="about-meta-pill"><span class="num">3</span><span class="lbl">FIELDS</span></div>
+          <div class="about-meta-pill"><span class="num">2025</span><span class="lbl">FREELANCE</span></div>
+        </div>
+      </div>
+
+      <div class="about-story">
+        <div class="about-block">
+          <div class="about-block-label"><span class="idx">01</span>WHO I AM</div>
+          <div>
+            <h3>Half engineer, half people-person</h3>
+            <p>A Software Engineering student based in Ho Chi Minh City who's spent the last few years moving between <strong>web development</strong>, <strong>client-facing consulting</strong>, and more recently, <strong>AI training</strong>. I care equally about how something is built and how it's explained to the person who needs it.</p>
+          </div>
+        </div>
+
+        <div class="about-block">
+          <div class="about-block-label"><span class="idx">02</span>JOURNEY</div>
+          <div>
+            <h3>Built skills the hands-on way</h3>
+            <p>I taught myself <strong>HTML, CSS, and JavaScript</strong>, then picked up <strong>WordPress and Webflow</strong> while consulting on websites at Nasani. In parallel, I worked in insurance and sales at Prudential, where I also coordinated a small marketing team. Different rooms, same instinct: figure out what's actually needed, then go build it.</p>
+          </div>
+        </div>
+
+        <div class="about-block">
+          <div class="about-block-label"><span class="idx">03</span>CURRENT FOCUS</div>
+          <div>
+            <h3>Web projects by day, AI training on the side</h3>
+            <p>Right now I split my time between <strong>freelance web projects</strong> for international clients and <strong>AI voice training</strong> work with Volga Partners and Sharework AI. Both push me to be precise — one with code, the other with language and data quality.</p>
+          </div>
+        </div>
+
+        <div class="about-block">
+          <div class="about-block-label"><span class="idx">04</span>CAREER GOAL</div>
+          <div>
+            <h3>Looking for where code meets consulting</h3>
+            <p>I want to grow into a role where software development and client-facing consulting aren't separate skill sets — somewhere that values both technical thinking and the ability to actually talk to people about what they need.</p>
+          </div>
+        </div>
+
+        <div class="about-block">
+          <div class="about-block-label"><span class="idx">05</span>WORKING STYLE</div>
+          <div>
+            <h3>Led people before I led projects</h3>
+            <p>Nine years coaching a competitive cheerleading team taught me how to read a room, set clear expectations, and stay composed under pressure — long before I had a project to manage. I bring the same approach now: <strong>listen first, communicate clearly, stay accountable</strong>. Comfortable working remotely across time zones, and still actively sharpening my English and my stack.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+
+<section class="experience" id="experience">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Career</div>
+      <h2 class="section-title">Experience</h2>
+      <p class="section-lead">A timeline of where I've worked and what I actually did there.</p>
+    </div>
+
+    <div class="timeline reveal">
+
+      <div class="timeline-item">
+        <div class="timeline-rail">
+          <span class="timeline-index">01</span>
+          <span class="timeline-connector"></span>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-card card">
+            <div class="timeline-logo">VS</div>
+            <div class="timeline-card-main">
+              <div class="timeline-top">
+                <span class="timeline-date">2025 — Present</span>
+                <span class="timeline-status"><span class="dot"></span>Ongoing</span>
+              </div>
+              <h3 class="timeline-title">AI Voice Trainer</h3>
+              <h4 class="timeline-company">Volga Partners &amp; Sharework AI (Vietnam) · Freelance / Remote</h4>
+              <ul class="timeline-list">
+                <li>Work remotely on AI voice training tasks for two platforms in parallel, recording and evaluating voice data used to train AI models.</li>
+                <li>Follow detailed task guidelines and quality standards across different projects and review cycles.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">AI Training</span>
+                <span class="tag">Voice Data</span>
+                <span class="tag">Remote Work</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-rail">
+          <span class="timeline-index">02</span>
+          <span class="timeline-connector"></span>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-card card">
+            <div class="timeline-logo">FW</div>
+            <div class="timeline-card-main">
+              <div class="timeline-top">
+                <span class="timeline-date">2025 — Present</span>
+                <span class="timeline-status"><span class="dot"></span>Ongoing</span>
+              </div>
+              <h3 class="timeline-title">Freelance Web Developer &amp; Consultant</h3>
+              <h4 class="timeline-company">Fiverr · Upwork · Self-Employed</h4>
+              <ul class="timeline-list">
+                <li>Manage web projects for international clients end-to-end — from initial discovery to delivery and handover.</li>
+                <li>Build websites and landing pages using HTML, CSS, JavaScript, WordPress, and Webflow, with basic SEO and Google Analytics setup.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Web Development</span>
+                <span class="tag">International Clients</span>
+                <span class="tag">SEO / GA4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-rail">
+          <span class="timeline-index">03</span>
+          <span class="timeline-connector"></span>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-card card">
+            <div class="timeline-logo">VF</div>
+            <div class="timeline-card-main">
+              <div class="timeline-top">
+                <span class="timeline-date">Aug — Dec 2025</span>
+              </div>
+              <h3 class="timeline-title">Web Developer &amp; Technical Consultant</h3>
+              <h4 class="timeline-company">VietForture Startup · Ho Chi Minh City</h4>
+              <ul class="timeline-list">
+                <li>Designed the UI/UX in Figma and built the front-end for the company website as the main point of contact for stakeholders.</li>
+                <li>Integrated a simple AI assistant feature (VIETBOT) into the site for basic lookup and data-entry tasks, building on an earlier personal experiment with a local AI assistant setup.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Figma</span>
+                <span class="tag">Front-End</span>
+                <span class="tag">AI Integration</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-rail">
+          <span class="timeline-index">04</span>
+          <span class="timeline-connector"></span>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-card card">
+            <div class="timeline-logo">NS</div>
+            <div class="timeline-card-main">
+              <div class="timeline-top">
+                <span class="timeline-date">Ho Chi Minh City</span>
+              </div>
+              <h3 class="timeline-title">Web Solutions Consultant</h3>
+              <h4 class="timeline-company">Nasani</h4>
+              <ul class="timeline-list">
+                <li>Advised small-business clients on website solutions across the sales journey — from understanding their needs to proposing, presenting, and closing.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Client Consulting</span>
+                <span class="tag">Web Solutions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-rail">
+          <span class="timeline-index">05</span>
+          <span class="timeline-connector"></span>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-card card">
+            <div class="timeline-logo">PR</div>
+            <div class="timeline-card-main">
+              <div class="timeline-top">
+                <span class="timeline-date">Ho Chi Minh City</span>
+              </div>
+              <h3 class="timeline-title">Insurance Consultant &amp; Marketing Coordinator</h3>
+              <h4 class="timeline-company">Prudential Vietnam</h4>
+              <ul class="timeline-list">
+                <li>Advised individual clients on insurance products through direct sales conversations and follow-up — my first real experience in sales.</li>
+                <li>Coordinated content and communication for a 4–7 person marketing team alongside my own client caseload — assigning tasks and keeping output on schedule.</li>
+                <li>Built a client base through multi-channel outreach and ongoing relationship follow-up.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Sales</span>
+                <span class="tag">Marketing Coordination</span>
+                <span class="tag">Client Relations</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-rail">
+          <span class="timeline-index">06</span>
+          <span class="timeline-connector"></span>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-card card">
+            <div class="timeline-logo">SC</div>
+            <div class="timeline-card-main">
+              <div class="timeline-top">
+                <span class="timeline-date">9+ years</span>
+              </div>
+              <h3 class="timeline-title">Cheerleading Coach &amp; Team Coordinator</h3>
+              <h4 class="timeline-company">Seahorse Crew · Competitive Cheerleading</h4>
+              <ul class="timeline-list">
+                <li>Coached and coordinated competitive teams across 10+ schools, guiding members from tryouts through to competition day.</li>
+                <li>Tracked individual progress, adapted training to each stage of preparation, and built the discipline and composure that I now bring into client and team work.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Leadership</span>
+                <span class="tag">Team Coordination</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Work</div>
+      <h2 class="section-title">Projects</h2>
+      <p class="section-lead">A mix of web builds, client work, and AI experiments. Click any card for the full case study.</p>
+    </div>
+
+    <!-- FEATURED PROJECT -->
+    <div class="featured-project card reveal" data-project="vietforture" tabindex="0" role="button" aria-label="Open VietForture case study">
+      <div class="featured-project-media">
+        <div class="featured-project-badge">Featured Project</div>
+        <img src="images/vietforture/hero.jpg" alt="VietForture homepage — credit and housing platform" loading="lazy" class="featured-project-img" id="featuredImg">
+        <div class="featured-project-media-fade"></div>
+        <div class="featured-thumbs">
+          <button class="featured-thumb active" data-img="images/vietforture/hero.jpg" aria-label="View homepage screenshot"><img src="images/vietforture/hero-thumb.jpg" alt="" loading="lazy"></button>
+          <button class="featured-thumb" data-img="images/vietforture/vietbot.jpg" aria-label="View VIETBOT chat screenshot"><img src="images/vietforture/vietbot-thumb.jpg" alt="" loading="lazy"></button>
+          <button class="featured-thumb" data-img="images/vietforture/careers.jpg" aria-label="View careers page screenshot"><img src="images/vietforture/careers-thumb.jpg" alt="" loading="lazy"></button>
+          <button class="featured-thumb" data-img="images/vietforture/news.jpg" aria-label="View news page screenshot"><img src="images/vietforture/news-thumb.jpg" alt="" loading="lazy"></button>
+          <button class="featured-thumb" data-img="images/vietforture/contact.jpg" aria-label="View contact page screenshot"><img src="images/vietforture/contact-thumb.jpg" alt="" loading="lazy"></button>
+          <button class="featured-thumb" data-img="images/vietforture/ktx.jpg" aria-label="View dormitory meal ordering screenshot"><img src="images/vietforture/ktx-thumb.jpg" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="featured-project-body">
+        <span class="project-role">VietForture · Freelance Web Developer</span>
+        <h3 class="featured-project-title">VietForture — Credit &amp; Housing Platform</h3>
+        <p class="featured-project-desc">A full business website for a credit-and-housing company — covering the public site, a careers board, a news section, contact tools, and an integrated chat assistant (VIETBOT) for quick visitor lookups.</p>
+        <div class="project-tags">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">AI Integration</span>
+        </div>
+        <div class="project-links">
+          <a href="https://www.vietforture.com.vn/" target="_blank" rel="noopener" class="btn btn-outline" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            Live Site
+          </a>
+          <a href="https://github.com/lqhoang01/VietForture" target="_blank" rel="noopener" class="btn btn-outline" onclick="event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <span class="project-link project-link-cta">Full case study <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="projects-grid reveal">
+      <div class="project-card card" data-project="landing" tabindex="0" role="button" aria-label="Open Landing Page Project case study">
+        <div class="project-preview">
+          <div class="project-preview-bar"><span class="project-preview-dot"></span><span class="project-preview-dot"></span><span class="project-preview-dot"></span><span class="project-preview-url">landing-page-project.vercel.app</span></div>
+          <div class="project-preview-stage">
+            <svg viewBox="0 0 280 150" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="pglp" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.28"/>
+                  <stop offset="100%" stop-color="#34d399" stop-opacity="0.1"/>
+                </linearGradient>
+              </defs>
+              <rect width="280" height="150" fill="url(#pglp)"/>
+              <!-- Desktop frame -->
+              <rect x="20" y="18" width="150" height="92" rx="6" fill="none" stroke="#a78bfa" stroke-width="1.3" opacity="0.8"/>
+              <rect x="32" y="30" width="60" height="9" rx="2" fill="#a78bfa" opacity="0.6"/>
+              <rect x="32" y="46" width="126" height="5" rx="2" fill="none" stroke="#62626a" stroke-width="1" opacity="0.5"/>
+              <rect x="32" y="56" width="90" height="5" rx="2" fill="none" stroke="#62626a" stroke-width="1" opacity="0.4"/>
+              <rect x="32" y="72" width="44" height="16" rx="8" fill="#34d399" opacity="0.85"/>
+              <!-- Tablet frame -->
+              <rect x="182" y="34" width="40" height="58" rx="5" fill="none" stroke="#a78bfa" stroke-width="1.1" opacity="0.55"/>
+              <rect x="188" y="42" width="28" height="4" rx="1.5" fill="#a78bfa" opacity="0.4"/>
+              <rect x="188" y="52" width="28" height="3" rx="1" fill="none" stroke="#62626a" stroke-width="0.8" opacity="0.35"/>
+              <!-- Phone frame -->
+              <rect x="234" y="40" width="26" height="46" rx="5" fill="none" stroke="#34d399" stroke-width="1.1" opacity="0.6"/>
+              <rect x="239" y="48" width="16" height="3" rx="1" fill="#34d399" opacity="0.45"/>
+            </svg>
+            <span class="project-preview-num">01</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-role">Personal Practice Project</span>
+          <h3 class="project-title">Landing Page Project</h3>
+          <p class="project-desc">A self-directed practice build — a clean, responsive landing page used to sharpen core HTML/CSS layout and responsive-design fundamentals.</p>
+          <div class="project-tags">
+            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://landing-page-project-kappa-gilt.vercel.app" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Live Demo
+            </a>
+            <a href="https://github.com/lqhoang01/landing-page-project" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <span class="project-link project-link-cta">Case study <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card card" data-project="voice" tabindex="0" role="button" aria-label="Open AI Voice Training case study">
+        <div class="project-preview">
+          <div class="project-preview-bar"><span class="project-preview-dot"></span><span class="project-preview-dot"></span><span class="project-preview-dot"></span></div>
+          <div class="project-preview-stage">
+            <svg viewBox="0 0 280 150" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="pgvoice" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.28"/>
+                  <stop offset="100%" stop-color="#34d399" stop-opacity="0.15"/>
+                </linearGradient>
+              </defs>
+              <rect width="280" height="150" fill="url(#pgvoice)"/>
+              <!-- Audio waveform bars, varying heights centered vertically -->
+              <g fill="#a78bfa" opacity="0.85">
+                <rect class="waveform-bar" x="24" y="68" width="6" height="14" rx="3"/>
+                <rect class="waveform-bar" x="36" y="56" width="6" height="38" rx="3"/>
+                <rect class="waveform-bar" x="48" y="40" width="6" height="70" rx="3"/>
+                <rect class="waveform-bar" x="60" y="50" width="6" height="50" rx="3"/>
+                <rect class="waveform-bar" x="72" y="62" width="6" height="26" rx="3"/>
+                <rect class="waveform-bar" x="84" y="34" width="6" height="82" rx="3"/>
+                <rect class="waveform-bar" x="96" y="48" width="6" height="54" rx="3"/>
+                <rect class="waveform-bar" x="108" y="58" width="6" height="34" rx="3"/>
+                <rect class="waveform-bar" x="120" y="44" width="6" height="62" rx="3"/>
+                <rect class="waveform-bar" x="132" y="64" width="6" height="22" rx="3"/>
+              </g>
+              <g fill="#34d399" opacity="0.7">
+                <rect class="waveform-bar" x="150" y="60" width="6" height="30" rx="3"/>
+                <rect class="waveform-bar" x="162" y="46" width="6" height="58" rx="3"/>
+                <rect class="waveform-bar" x="174" y="38" width="6" height="74" rx="3"/>
+                <rect class="waveform-bar" x="186" y="54" width="6" height="42" rx="3"/>
+                <rect class="waveform-bar" x="198" y="66" width="6" height="18" rx="3"/>
+                <rect class="waveform-bar" x="210" y="50" width="6" height="50" rx="3"/>
+                <rect class="waveform-bar" x="222" y="58" width="6" height="34" rx="3"/>
+                <rect class="waveform-bar" x="234" y="44" width="6" height="62" rx="3"/>
+                <rect class="waveform-bar" x="246" y="64" width="6" height="22" rx="3"/>
+              </g>
+              <line x1="0" y1="75" x2="280" y2="75" stroke="#62626a" stroke-width="0.5" opacity="0.3" stroke-dasharray="2 3"/>
+            </svg>
+            <span class="project-preview-num">02</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-role">Volga Partners · Sharework AI</span>
+          <h3 class="project-title">AI Voice Training</h3>
+          <p class="project-desc">Ongoing freelance work recording and evaluating voice data for AI model training across two platforms, following detailed task and quality guidelines.</p>
+          <div class="project-tags">
+            <span class="tag">AI Training</span><span class="tag">Voice Data</span>
+          </div>
+          <div class="project-links">
+            <span class="project-link disabled">Confidential platform work</span>
+            <span class="project-link project-link-cta">Details <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card card" data-project="business" tabindex="0" role="button" aria-label="Open Business Websites case study">
+        <div class="project-preview">
+          <div class="project-preview-bar"><span class="project-preview-dot"></span><span class="project-preview-dot"></span><span class="project-preview-dot"></span></div>
+          <div class="project-preview-stage">
+            <svg viewBox="0 0 280 150" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="pg4" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.22"/>
+                  <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect width="280" height="150" fill="url(#pg4)"/>
+              <!-- Three stacked browser windows, representing multiple client sites -->
+              <rect x="44" y="78" width="160" height="56" rx="6" fill="#0e0e10" stroke="#222226" stroke-width="1.2" opacity="0.9"/>
+              <rect x="44" y="78" width="160" height="14" rx="6" fill="#1a1a1e"/>
+              <circle cx="52" cy="85" r="2" fill="#62626a"/>
+              <circle cx="59" cy="85" r="2" fill="#62626a"/>
+              <rect x="56" y="100" width="60" height="6" rx="2" fill="none" stroke="#62626a" stroke-width="1" opacity="0.5"/>
+              <rect x="56" y="112" width="100" height="4" rx="1.5" fill="none" stroke="#62626a" stroke-width="0.8" opacity="0.35"/>
+
+              <rect x="68" y="48" width="160" height="56" rx="6" fill="#0e0e10" stroke="#34d399" stroke-width="1.2" opacity="0.95"/>
+              <rect x="68" y="48" width="160" height="14" rx="6" fill="#16201c"/>
+              <circle cx="76" cy="55" r="2" fill="#34d399" opacity="0.7"/>
+              <circle cx="83" cy="55" r="2" fill="#34d399" opacity="0.5"/>
+              <rect x="80" y="70" width="70" height="7" rx="2" fill="#34d399" opacity="0.6"/>
+              <rect x="80" y="84" width="110" height="4" rx="1.5" fill="none" stroke="#34d399" stroke-width="0.8" opacity="0.4"/>
+
+              <rect x="20" y="18" width="160" height="56" rx="6" fill="#0e0e10" stroke="#a78bfa" stroke-width="1.4"/>
+              <rect x="20" y="18" width="160" height="14" rx="6" fill="#1d1826"/>
+              <circle cx="28" cy="25" r="2" fill="#a78bfa"/>
+              <circle cx="35" cy="25" r="2" fill="#a78bfa" opacity="0.7"/>
+              <rect x="32" y="40" width="74" height="8" rx="2" fill="#a78bfa" opacity="0.8"/>
+              <rect x="32" y="56" width="120" height="4" rx="1.5" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/>
+            </svg>
+            <span class="project-preview-num">03</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-role">Nasani / Freelance</span>
+          <h3 class="project-title">Business &amp; Landing Page Websites</h3>
+          <p class="project-desc">Built and consulted on websites and landing pages for small-business clients using WordPress, Webflow, and custom HTML/CSS/JS — covering basic SEO and analytics setup.</p>
+          <div class="project-tags">
+            <span class="tag">WordPress</span><span class="tag">Webflow</span><span class="tag">SEO</span>
+          </div>
+          <div class="project-links">
+            <span class="project-link disabled">Client work</span>
+            <span class="project-link project-link-cta">Details <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card card" data-project="prompt" tabindex="0" role="button" aria-label="Open Prompt Engineering Practice case study">
+        <div class="project-preview">
+          <div class="project-preview-bar"><span class="project-preview-dot"></span><span class="project-preview-dot"></span><span class="project-preview-dot"></span></div>
+          <div class="project-preview-stage">
+            <svg viewBox="0 0 280 150" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="pg6" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.22"/>
+                  <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect width="280" height="150" fill="url(#pg6)"/>
+              <!-- Prompt bubble (user) -->
+              <rect x="100" y="22" width="160" height="32" rx="14" fill="#7c3aed" opacity="0.85"/>
+              <text x="116" y="42" font-family="JetBrains Mono, monospace" font-size="9" fill="#ffffff" opacity="0.9">refine instruction set…</text>
+              <!-- Response bubble (assistant) -->
+              <rect x="20" y="64" width="180" height="32" rx="14" fill="#16161a" stroke="#34d399" stroke-width="1.2" opacity="0.9"/>
+              <text x="36" y="84" font-family="JetBrains Mono, monospace" font-size="9" fill="#34d399" opacity="0.9">testing edge cases…</text>
+              <!-- Iteration bubble -->
+              <rect x="100" y="106" width="150" height="28" rx="14" fill="#7c3aed" opacity="0.55"/>
+              <circle cx="120" cy="120" r="2.4" fill="#ffffff" opacity="0.8"/>
+              <circle cx="130" cy="120" r="2.4" fill="#ffffff" opacity="0.6"/>
+              <circle cx="140" cy="120" r="2.4" fill="#ffffff" opacity="0.4"/>
+            </svg>
+            <span class="project-preview-num">04</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-role">Self-Directed Learning</span>
+          <h3 class="project-title">Prompt Engineering Practice</h3>
+          <p class="project-desc">Ongoing hands-on practice writing and refining prompts while working on AI training and evaluation tasks — learning by doing rather than formal coursework.</p>
+          <div class="project-tags">
+            <span class="tag">Prompt Engineering</span><span class="tag">AI</span>
+          </div>
+          <div class="project-links">
+            <span class="project-link disabled">Ongoing practice</span>
+            <span class="project-link project-link-cta">Details <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card card" data-project="portfolio" tabindex="0" role="button" aria-label="Open Portfolio Website case study">
+        <div class="project-preview">
+          <div class="project-preview-bar"><span class="project-preview-dot"></span><span class="project-preview-dot"></span><span class="project-preview-dot"></span></div>
+          <div class="project-preview-stage">
+            <svg viewBox="0 0 280 150" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="pg1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect width="280" height="150" fill="url(#pg1)"/>
+              <!-- Component tree: root node branching into hand-built sections -->
+              <circle cx="34" cy="75" r="6" fill="#a78bfa"/>
+              <line x1="40" y1="75" x2="70" y2="32" stroke="#62626a" stroke-width="1" opacity="0.5"/>
+              <line x1="40" y1="75" x2="70" y2="62" stroke="#62626a" stroke-width="1" opacity="0.5"/>
+              <line x1="40" y1="75" x2="70" y2="92" stroke="#62626a" stroke-width="1" opacity="0.5"/>
+              <line x1="40" y1="75" x2="70" y2="120" stroke="#62626a" stroke-width="1" opacity="0.5"/>
+              <circle cx="76" cy="32" r="4.5" fill="#34d399" opacity="0.85"/>
+              <circle cx="76" cy="62" r="4.5" fill="#34d399" opacity="0.7"/>
+              <circle cx="76" cy="92" r="4.5" fill="#34d399" opacity="0.7"/>
+              <circle cx="76" cy="120" r="4.5" fill="#34d399" opacity="0.55"/>
+              <line x1="82" y1="32" x2="150" y2="20" stroke="#62626a" stroke-width="0.8" opacity="0.4"/>
+              <line x1="82" y1="32" x2="150" y2="44" stroke="#62626a" stroke-width="0.8" opacity="0.4"/>
+              <line x1="82" y1="92" x2="150" y2="80" stroke="#62626a" stroke-width="0.8" opacity="0.4"/>
+              <line x1="82" y1="92" x2="150" y2="104" stroke="#62626a" stroke-width="0.8" opacity="0.4"/>
+              <rect x="150" y="14" width="86" height="12" rx="3" fill="none" stroke="#a78bfa" stroke-width="1" opacity="0.6"/>
+              <rect x="150" y="38" width="64" height="12" rx="3" fill="none" stroke="#a78bfa" stroke-width="1" opacity="0.5"/>
+              <rect x="150" y="74" width="78" height="12" rx="3" fill="none" stroke="#a78bfa" stroke-width="1" opacity="0.5"/>
+              <rect x="150" y="98" width="58" height="12" rx="3" fill="none" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <span class="project-preview-num">05</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <span class="project-role">Personal Project</span>
+          <h3 class="project-title">Portfolio Website</h3>
+          <p class="project-desc">This site. Built from scratch — a custom 3D developer workspace, project case studies, and a full interaction layer with no templates.</p>
+          <div class="project-tags">
+            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/lqhoang01" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <span class="project-link project-link-cta">Case study <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT MODAL -->
+<div class="project-modal-overlay" id="projectModalOverlay">
+  <div class="project-modal" id="projectModal" role="dialog" aria-modal="true">
+    <button class="project-modal-close" id="projectModalClose" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <button class="project-modal-nav prev" id="projectModalPrev" aria-label="Previous project">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="project-modal-nav next" id="projectModalNext" aria-label="Next project">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <div class="project-modal-scroll" id="projectModalScroll"></div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements" id="achievements">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Highlights</div>
+      <h2 class="section-title">What I bring to the table</h2>
+      <p class="section-lead">Not awards — just the patterns that show up across everything I've worked on.</p>
+    </div>
+
+    <div class="achievements-grid reveal">
+      <div class="achievement-card card">
+        <div class="achievement-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg></div>
+        <p class="achievement-text">Experience working directly with international clients through freelance platforms.</p>
+      </div>
+      <div class="achievement-card card">
+        <div class="achievement-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div>
+        <p class="achievement-text">Delivered multiple websites for real clients, from small businesses to an early-stage startup.</p>
+      </div>
+      <div class="achievement-card card">
+        <div class="achievement-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+        <p class="achievement-text">Comfortable consulting clients on web solutions, from first conversation through to launch.</p>
+      </div>
+      <div class="achievement-card card">
+        <div class="achievement-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v18M3 9h18"></path></svg></div>
+        <p class="achievement-text">Actively involved in AI training and evaluation work alongside web development.</p>
+      </div>
+      <div class="achievement-card card">
+        <div class="achievement-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></div>
+        <p class="achievement-text">Comfortable moving across different fields — web, sales, consulting, and AI — without losing momentum.</p>
+      </div>
+      <div class="achievement-card card">
+        <div class="achievement-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></div>
+        <p class="achievement-text">First hands-on sales experience gained through direct client advisory work at Prudential.</p>
+      </div>
+      <div class="achievement-card card">
+        <div class="achievement-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+        <p class="achievement-text">Nine years of leadership experience coaching and coordinating competitive teams.</p>
+      </div>
+      <div class="achievement-card card">
+        <div class="achievement-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+        <p class="achievement-text">Consistently picking up new tools and technologies on my own as projects require them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Toolbox</div>
+      <h2 class="section-title">Skills</h2>
+      <p class="section-lead">Grouped by area, not ranked by percentage — these are the tools and skills I actually use.</p>
+    </div>
+
+    <div class="skills-grid reveal">
+
+      <div class="skill-card card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
+          <span class="skill-card-title">Frontend</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JavaScript</span>
+        </div>
+      </div>
+
+      <div class="skill-card card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M9 21V9"></path></svg></div>
+          <span class="skill-card-title">CMS</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">WordPress</span><span class="skill-tag">Webflow</span>
+        </div>
+      </div>
+
+      <div class="skill-card card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"></circle><circle cx="19" cy="13" r="2.5"></circle><circle cx="6" cy="12" r="2.5"></circle><circle cx="10" cy="19" r="2.5"></circle></svg></div>
+          <span class="skill-card-title">Design</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">UI/UX</span><span class="skill-tag">Figma</span><span class="skill-tag">Canva</span>
+        </div>
+      </div>
+
+      <div class="skill-card card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"></path></svg></div>
+          <span class="skill-card-title">Analytics &amp; Marketing</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">SEO Basics</span><span class="skill-tag">Google Analytics</span>
+        </div>
+      </div>
+
+      <div class="skill-card card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4M8 16h.01M16 16h.01"></path></svg></div>
+          <span class="skill-card-title">AI</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">AI Training</span><span class="skill-tag">AI Evaluation</span><span class="skill-tag">Prompt Engineering</span>
+        </div>
+      </div>
+
+      <div class="skill-card card">
+        <div class="skill-card-head">
+          <div class="skill-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"></path></svg></div>
+          <span class="skill-card-title">Business</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Sales</span><span class="skill-tag">Customer Consulting</span><span class="skill-tag">Client Communication</span>
+        </div>
+      </div>
+
+      <div class="skill-card card" style="grid-column: 1 / -1;">
+        <div class="skill-card-head">
+          <div class="skill-card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+          <span class="skill-card-title">Soft Skills</span>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Problem Solving</span><span class="skill-tag">Leadership</span><span class="skill-tag">Teamwork</span><span class="skill-tag">Time Management</span><span class="skill-tag">Communication</span><span class="skill-tag">Adaptability</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CURRENTLY -->
+<section class="currently">
+  <div class="container">
+    <div class="currently-card card reveal">
+      <div class="currently-row">
+        <span class="currently-item"><span class="currently-emoji">📍</span> Ho Chi Minh City</span>
+        <span class="currently-item"><span class="currently-emoji">🎓</span> Software Engineering Student</span>
+        <span class="currently-item"><span class="currently-emoji">💻</span> Building modern web projects</span>
+        <span class="currently-item"><span class="currently-emoji">🤖</span> Learning AI Engineering</span>
+        <span class="currently-item"><span class="currently-emoji">🌍</span> Open to Remote Opportunities</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-card card">
+      <div class="contact-availability">
+        <span class="contact-availability-dot"></span> Available for new opportunities
+      </div>
+      <div class="eyebrow" style="justify-content:center;">Get in touch</div>
+      <h2 class="contact-title">Let's talk about what you're building.</h2>
+      <p class="contact-lead">Open to freelance projects, internships, and full-time opportunities — remote or in Ho Chi Minh City.</p>
+      <div class="contact-cta-row">
+        <a href="mailto:lequanghoang1001@gmail.com" class="btn btn-primary">Email Me</a>
+        <a href="LeQuangHoang.pdf" download class="btn btn-outline">Download CV</a>
+      </div>
+      <div class="contact-channels">
+        <button class="contact-channel contact-copy-btn" id="copyEmailBtn" data-email="lequanghoang1001@gmail.com" type="button">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span class="copy-email-text">lequanghoang1001@gmail.com</span>
+          <span class="copy-email-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          </span>
+        </button>
+        <a href="tel:+84703026269" class="contact-channel">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          (+84) 070 302 6269
+        </a>
+        <a href="https://github.com/lqhoang01" target="_blank" rel="noopener" class="contact-channel">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          github.com/lqhoang01
+        </a>
+        <span class="contact-channel" style="cursor:default;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Ho Chi Minh City, Vietnam
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-row">
+      <div class="footer-meta">
+        <div class="footer-credit">Designed &amp; Developed by <span class="accent-text">Lê Quang Hoàng</span></div>
+        <div class="footer-stack">Built with <span class="footer-stack-tag">HTML</span><span class="footer-dot">•</span><span class="footer-stack-tag">CSS</span><span class="footer-dot">•</span><span class="footer-stack-tag">JavaScript</span></div>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-year">© <span id="footerYear">2026</span> Lê Quang Hoàng. All rights reserved.</div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <svg class="scroll-top-ring" width="44" height="44" viewBox="0 0 44 44">
+    <circle cx="22" cy="22" r="19" fill="none" stroke="var(--line)" stroke-width="2"></circle>
+    <circle cx="22" cy="22" r="19" fill="none" stroke="var(--accent-soft)" stroke-width="2" id="scrollTopProgress" stroke-dasharray="119.4" stroke-dashoffset="119.4" stroke-linecap="round" transform="rotate(-90 22 22)"></circle>
+  </svg>
+  <svg class="scroll-top-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<script src="script.js"></script>
+</body>
+</html>
