@@ -1548,6 +1548,17 @@ body.loaded .ws-desk-illumination {
 .tech-chip-icon.gh { background: #24292e; }
 .tech-chip-icon.ai { background: var(--accent); }
 .tech-chip-icon.ga { background: #f9ab00; color: #1a1a1a; }
+.tech-chip-icon.capcut { background: #111; }
+.tech-chip-icon.premiere { background: #5c28cc; color: #d7baff; }
+.tech-chip-icon.canva { background: linear-gradient(135deg, #00c4cc, #7d2ae8); }
+.tech-chip-icon.ps { background: #001e36; color: #31a8ff; }
+
+.nav-link-creative {
+    color: var(--accent) !important;
+    font-weight: 650;
+}
+
+.nav-link-creative::after { background: var(--accent) !important; }
 
 @media (max-width: 720px) {
     .tech-bar-row { flex-direction: column; align-items: flex-start; gap: 14px; }
