@@ -1,73 +1,111 @@
 (() => {
-  const slides = [...document.querySelectorAll('.reel-slide')];
-  const controls = [...document.querySelectorAll('.reel-controls button')];
-  const title = document.getElementById('reelTitle');
-  const type = document.getElementById('reelType');
-  const count = document.getElementById('reelCount');
   const progress = document.getElementById('scrollProgress');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let active = 0;
-  let timer;
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const runningAnimations = new Set();
+  const tiltStage = document.querySelector('[data-tilt]');
+  let revealObserver;
+  let progressFrame = 0;
+  let tiltFrame = 0;
 
-  function showSlide(index) {
-    active = (index + slides.length) % slides.length;
-    slides.forEach((slide, i) => slide.classList.toggle('is-active', i === active));
-    controls.forEach((button, i) => button.classList.toggle('is-active', i === active));
-    title.textContent = slides[active].dataset.title;
-    type.textContent = slides[active].dataset.type;
-    count.textContent = `${String(active + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
-  }
-
-  function restartTimer() {
-    if (reduceMotion) return;
-    window.clearInterval(timer);
-    timer = window.setInterval(() => showSlide(active + 1), 4200);
-  }
-
-  controls.forEach((button, index) => {
-    button.addEventListener('click', () => {
-      showSlide(index);
-      restartTimer();
+  // Base styles are always visible; animations never gate access to content.
+  function enter(element, delay = 0) {
+    if (motionPreference.matches || typeof element.animate !== 'function') return;
+    const animation = element.animate([
+      { opacity: 0, transform: 'translateY(18px)' },
+      { opacity: 1, transform: 'translateY(0)' },
+    ], {
+      duration: 620,
+      delay,
+      easing: 'cubic-bezier(.2, .7, .2, 1)',
+      fill: 'backwards',
     });
+    runningAnimations.add(animation);
+    const release = () => runningAnimations.delete(animation);
+    animation.addEventListener('finish', release, { once: true });
+    animation.addEventListener('cancel', release, { once: true });
+  }
+
+  document.querySelectorAll('[data-hero-enter]').forEach((element, index) => {
+    enter(element, Math.min(index * 55, 330));
   });
 
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
+  if (!motionPreference.matches && 'IntersectionObserver' in window) {
+    revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+          enter(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.14 });
-    document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element));
-  } else {
-    document.querySelectorAll('[data-reveal]').forEach((element) => element.classList.add('is-visible'));
+    }, { threshold: 0, rootMargin: '0px 0px -32px 0px' });
+    // Reveal small groups, not entire case studies taller than a mobile screen.
+    document.querySelectorAll([
+      '[data-reveal]:not(.project)',
+      '.project[data-reveal] .project-heading',
+      '.project[data-reveal] .project-story',
+      '.seahorse-intro',
+      '.role-detail',
+    ].join(',')).forEach((element) => revealObserver.observe(element));
   }
 
-  const tiltStage = document.querySelector('[data-tilt]');
-  if (tiltStage && !reduceMotion && window.matchMedia('(pointer:fine)').matches) {
+  function resetTilt() {
+    window.cancelAnimationFrame(tiltFrame);
+    tiltFrame = 0;
+    if (!tiltStage) return;
+    tiltStage.style.setProperty('--tilt-x', '0');
+    tiltStage.style.setProperty('--tilt-y', '0');
+  }
+
+  if (tiltStage) {
+    let pointerX = 0;
+    let pointerY = 0;
     tiltStage.addEventListener('pointermove', (event) => {
-      const rect = tiltStage.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - .5) * 7;
-      const y = ((event.clientY - rect.top) / rect.height - .5) * -7;
-      tiltStage.style.setProperty('--tilt-x', x.toFixed(2));
-      tiltStage.style.setProperty('--tilt-y', y.toFixed(2));
-    });
-    tiltStage.addEventListener('pointerleave', () => {
-      tiltStage.style.setProperty('--tilt-x', 0);
-      tiltStage.style.setProperty('--tilt-y', 0);
-    });
+      if (motionPreference.matches || !finePointer.matches) return;
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      if (tiltFrame) return;
+      tiltFrame = window.requestAnimationFrame(() => {
+        tiltFrame = 0;
+        const rect = tiltStage.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const x = (Math.max(0, Math.min(1, (pointerX - rect.left) / rect.width)) - .5) * 3;
+        const y = (Math.max(0, Math.min(1, (pointerY - rect.top) / rect.height)) - .5) * -3;
+        tiltStage.style.setProperty('--tilt-x', x.toFixed(2));
+        tiltStage.style.setProperty('--tilt-y', y.toFixed(2));
+      });
+    }, { passive: true });
+    tiltStage.addEventListener('pointerleave', resetTilt);
+    tiltStage.addEventListener('pointercancel', resetTilt);
+    window.addEventListener('blur', resetTilt);
   }
 
   function updateProgress() {
+    progressFrame = 0;
+    if (!progress) return;
     const max = document.documentElement.scrollHeight - window.innerHeight;
-    const value = max > 0 ? (window.scrollY / max) * 100 : 0;
-    progress.style.width = `${Math.min(100, Math.max(0, value))}%`;
+    const value = max > 0 ? window.scrollY / max : 0;
+    progress.style.transform = `scaleX(${Math.min(1, Math.max(0, value)).toFixed(4)})`;
   }
 
-  window.addEventListener('scroll', updateProgress, { passive: true });
+  function queueProgress() {
+    if (!progressFrame) progressFrame = window.requestAnimationFrame(updateProgress);
+  }
+
+  function onMotionChange() {
+    resetTilt();
+    if (!motionPreference.matches) return;
+    runningAnimations.forEach((animation) => animation.cancel());
+    runningAnimations.clear();
+    if (revealObserver) revealObserver.disconnect();
+  }
+
+  window.addEventListener('scroll', queueProgress, { passive: true });
+  window.addEventListener('resize', queueProgress, { passive: true });
+  window.addEventListener('load', queueProgress);
+  if (typeof motionPreference.addEventListener === 'function') {
+    motionPreference.addEventListener('change', onMotionChange);
+    finePointer.addEventListener('change', resetTilt);
+  }
   updateProgress();
-  showSlide(0);
-  restartTimer();
 })();
