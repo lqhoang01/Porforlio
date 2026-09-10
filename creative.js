@@ -3,15 +3,13 @@
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const runningAnimations = new Set();
-  const tiltStage = document.querySelector('[data-tilt]');
-  const gallery = document.querySelector('[data-hero-gallery]');
-  const sceneSurface = gallery?.querySelector('.hero-scene');
+  const gallery = document.querySelector('[data-exhibit]');
+  const sceneSurface = gallery?.querySelector('.exhibit-object');
   const motionToggle = gallery?.querySelector('[data-motion-toggle]');
-  const compactScene = window.matchMedia('(max-width: 760px)');
+  const compactScene = window.matchMedia('(max-width: 600px)');
   const livePreviews = document.querySelectorAll('[data-live-preview]');
   let revealObserver;
   let progressFrame = 0;
-  let tiltFrame = 0;
   let sceneFrame = 0;
   let sceneVisible = true;
   let sceneFocused = false;
@@ -39,6 +37,68 @@
     livePreviews.forEach((frame) => previewObserver.observe(frame));
   } else {
     window.addEventListener('resize', () => livePreviews.forEach(fitLivePreview), { passive: true });
+  }
+
+  // Without JavaScript these controls remain direct links to the real work.
+  // Enhance them into a keyboard-accessible, manually selected exhibit.
+  const tabList = gallery?.querySelector('[data-exhibit-tabs]');
+  const tabs = Array.from(tabList?.querySelectorAll('[data-exhibit-tab]') || []);
+  const panels = tabs.map((tab) => document.getElementById(tab.dataset.exhibitTab));
+  const counter = gallery?.querySelector('[data-exhibit-counter]');
+  let activeTab = 0;
+  let panelAnimation;
+
+  if (tabs.length && panels.every(Boolean)) {
+    tabList.setAttribute('role', 'tablist');
+    tabs.forEach((tab, index) => {
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-controls', panels[index].id);
+      panels[index].setAttribute('role', 'tabpanel');
+      panels[index].setAttribute('aria-labelledby', tab.id);
+    });
+
+    function selectTab(index, focus = false, animate = true) {
+      const changed = activeTab !== index;
+      activeTab = index;
+      panelAnimation?.cancel();
+      tabs.forEach((tab, tabIndex) => {
+        const selected = tabIndex === index;
+        tab.classList.toggle('is-active', selected);
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        panels[tabIndex].hidden = !selected;
+      });
+      if (counter) counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')}`;
+      livePreviews.forEach(fitLivePreview);
+      if (focus) tabs[index].focus();
+      if (changed && animate && !motionPreference.matches && typeof panels[index].animate === 'function') {
+        panelAnimation = panels[index].animate([
+          { opacity: .3, transform: 'translateY(5px)' },
+          { opacity: 1, transform: 'translateY(0)' },
+        ], { duration: 260, easing: 'ease-out' });
+      }
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', (event) => {
+        if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        selectTab(index);
+      });
+      tab.addEventListener('keydown', (event) => {
+        if (event.ctrlKey || event.metaKey || event.altKey) return;
+        let next;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else if (event.key === ' ') next = index;
+        else return;
+        event.preventDefault();
+        selectTab(next, true);
+      });
+    });
+    selectTab(0, false, false);
   }
 
   // Base styles are always visible; animations never gate access to content.
@@ -82,37 +142,6 @@
     ].join(',')).forEach((element) => revealObserver.observe(element));
   }
 
-  function resetTilt() {
-    window.cancelAnimationFrame(tiltFrame);
-    tiltFrame = 0;
-    if (!tiltStage) return;
-    tiltStage.style.setProperty('--tilt-x', '0');
-    tiltStage.style.setProperty('--tilt-y', '0');
-  }
-
-  if (tiltStage) {
-    let pointerX = 0;
-    let pointerY = 0;
-    tiltStage.addEventListener('pointermove', (event) => {
-      if (motionPreference.matches || !finePointer.matches) return;
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      if (tiltFrame) return;
-      tiltFrame = window.requestAnimationFrame(() => {
-        tiltFrame = 0;
-        const rect = tiltStage.getBoundingClientRect();
-        if (!rect.width || !rect.height) return;
-        const x = (Math.max(0, Math.min(1, (pointerX - rect.left) / rect.width)) - .5) * 3;
-        const y = (Math.max(0, Math.min(1, (pointerY - rect.top) / rect.height)) - .5) * -3;
-        tiltStage.style.setProperty('--tilt-x', x.toFixed(2));
-        tiltStage.style.setProperty('--tilt-y', y.toFixed(2));
-      });
-    }, { passive: true });
-    tiltStage.addEventListener('pointerleave', resetTilt);
-    tiltStage.addEventListener('pointercancel', resetTilt);
-    window.addEventListener('blur', resetTilt);
-  }
-
   function sceneCanMove() {
     return gallery && userMotionEnabled && !motionPreference.matches && sceneVisible && !sceneFocused && !document.hidden;
   }
@@ -138,9 +167,9 @@
     currentX += (targetX - currentX) * ease;
     currentY += (targetY - currentY) * ease;
     const strength = compactScene.matches ? .35 : 1;
-    const rotateX = (-currentY * 4 + Math.sin(sceneTime / 4300) * 1.1) * strength;
-    const rotateY = (currentX * 7 + Math.sin(sceneTime / 5800) * 1.8) * strength;
-    const lift = (Math.sin(sceneTime / 3400) * 5 - currentY * 2) * strength;
+    const rotateX = (-currentY * 1.5 + Math.sin(sceneTime / 4300) * .35) * strength;
+    const rotateY = (currentX * 2 + Math.sin(sceneTime / 5800) * .4) * strength;
+    const lift = Math.sin(sceneTime / 3400) * 2 * strength;
     gallery.style.setProperty('--scene-rx', `${rotateX.toFixed(3)}deg`);
     gallery.style.setProperty('--scene-ry', `${rotateY.toFixed(3)}deg`);
     gallery.style.setProperty('--scene-lift', `${lift.toFixed(3)}px`);
@@ -157,7 +186,7 @@
       motionToggle.setAttribute('aria-pressed', String(enabled));
       motionToggle.setAttribute('aria-label', motionPreference.matches ? 'Hero motion follows your reduced-motion preference' : enabled ? 'Pause hero motion' : 'Enable hero motion');
       const label = motionToggle.querySelector('[data-motion-label]');
-      const symbol = motionToggle.querySelector('.motion-symbol');
+      const symbol = motionToggle.querySelector('[aria-hidden="true"]');
       if (label) label.textContent = motionPreference.matches ? 'Reduced motion' : enabled ? 'Motion on' : 'Motion off';
       if (symbol) symbol.textContent = enabled ? 'Ⅱ' : '▶';
     }
@@ -218,9 +247,9 @@
   }
 
   function onMotionChange() {
-    resetTilt();
     syncSceneMotion();
     if (!motionPreference.matches) return;
+    panelAnimation?.cancel();
     runningAnimations.forEach((animation) => animation.cancel());
     runningAnimations.clear();
     if (revealObserver) revealObserver.disconnect();
@@ -231,7 +260,7 @@
   window.addEventListener('load', queueProgress);
   if (typeof motionPreference.addEventListener === 'function') {
     motionPreference.addEventListener('change', onMotionChange);
-    finePointer.addEventListener('change', () => { resetTilt(); targetX = targetY = 0; });
+    finePointer.addEventListener('change', () => { targetX = targetY = 0; });
     compactScene.addEventListener('change', () => { sceneBounds = null; syncSceneMotion(); });
   }
   updateProgress();
