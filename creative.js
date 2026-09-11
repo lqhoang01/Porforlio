@@ -1,267 +1,123 @@
+
 (() => {
-  const progress = document.getElementById('scrollProgress');
-  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-  const runningAnimations = new Set();
-  const gallery = document.querySelector('[data-exhibit]');
-  const sceneSurface = gallery?.querySelector('.exhibit-object');
-  const motionToggle = gallery?.querySelector('[data-motion-toggle]');
-  const compactScene = window.matchMedia('(max-width: 600px)');
-  const livePreviews = document.querySelectorAll('[data-live-preview]');
-  let revealObserver;
-  let progressFrame = 0;
-  let sceneFrame = 0;
-  let sceneVisible = true;
-  let sceneFocused = false;
-  let userMotionEnabled = true;
-  let sceneBounds = null;
-  let targetX = 0;
-  let targetY = 0;
-  let currentX = 0;
-  let currentY = 0;
-  let sceneTime = 0;
-  let previousFrameTime = 0;
-
-  // Show the actual portfolio at desktop proportions, fitted to its frame.
-  // A full-size link stays usable with or without JavaScript.
-  function fitLivePreview(frame) {
-    const width = frame.clientWidth;
-    if (width > 0) frame.style.setProperty('--preview-scale', String(width / 1280));
+  const root = document.getElementById('cinema-portfolio');
+  if (!root) return;
+  const stage = root.querySelector('[data-qh-stage]');
+  const portrait = root.querySelector('[data-qh-portrait]');
+  const halo = root.querySelector('[data-qh-halo]');
+  const motionButton = root.querySelector('[data-qh-motion]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const pointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const animations = new Set();
+  let paused = reduce.matches;
+  let frame = 0;
+  let px = 0, py = 0, tx = 0, ty = 0;
+  let replayTimer;
+  function play(element, keyframes, options) {
+    if (paused || typeof element.animate !== 'function') return;
+    const animation = element.animate(keyframes, options);
+    animations.add(animation);
+    const release = () => animations.delete(animation);
+    animation.addEventListener('finish', release, { once:true });
+    animation.addEventListener('cancel', release, { once:true });
   }
-
-  livePreviews.forEach(fitLivePreview);
-  if ('ResizeObserver' in window) {
-    const previewObserver = new ResizeObserver((entries) => {
-      entries.forEach((entry) => fitLivePreview(entry.target));
+  function intro() {
+    animations.forEach(a => a.cancel());
+    if (paused) return;
+    root.querySelectorAll('.qh-name > span').forEach((letter, index) => {
+      play(letter, [{ opacity:0,transform:'translateY(70px) rotate(3deg)' },{ opacity:1,transform:'translateY(0) rotate(0)' }], {duration:850,delay:index*42,easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'});
     });
-    livePreviews.forEach((frame) => previewObserver.observe(frame));
-  } else {
-    window.addEventListener('resize', () => livePreviews.forEach(fitLivePreview), { passive: true });
+    play(halo,[{opacity:0,scale:'.65'},{opacity:1,scale:'1'}],{duration:1050,delay:60,easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'});
+    play(portrait,[{opacity:0,transform:'translate3d(0,95px,0)'},{opacity:1,transform:'translate3d(0,0,0)'}],{duration:1200,delay:190,easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'});
   }
-
-  // Without JavaScript these controls remain direct links to the real work.
-  // Enhance them into a keyboard-accessible, manually selected exhibit.
-  const tabList = gallery?.querySelector('[data-exhibit-tabs]');
-  const tabs = Array.from(tabList?.querySelectorAll('[data-exhibit-tab]') || []);
-  const panels = tabs.map((tab) => document.getElementById(tab.dataset.exhibitTab));
-  const counter = gallery?.querySelector('[data-exhibit-counter]');
-  let activeTab = 0;
-  let panelAnimation;
-
-  if (tabs.length && panels.every(Boolean)) {
-    tabList.setAttribute('role', 'tablist');
-    tabs.forEach((tab, index) => {
-      tab.setAttribute('role', 'tab');
-      tab.setAttribute('aria-controls', panels[index].id);
-      panels[index].setAttribute('role', 'tabpanel');
-      panels[index].setAttribute('aria-labelledby', tab.id);
-    });
-
-    function selectTab(index, focus = false, animate = true) {
-      const changed = activeTab !== index;
-      activeTab = index;
-      panelAnimation?.cancel();
-      tabs.forEach((tab, tabIndex) => {
-        const selected = tabIndex === index;
-        tab.classList.toggle('is-active', selected);
-        tab.setAttribute('aria-selected', String(selected));
-        tab.tabIndex = selected ? 0 : -1;
-        panels[tabIndex].hidden = !selected;
-      });
-      if (counter) counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(tabs.length).padStart(2, '0')}`;
-      livePreviews.forEach(fitLivePreview);
-      if (focus) tabs[index].focus();
-      if (changed && animate && !motionPreference.matches && typeof panels[index].animate === 'function') {
-        panelAnimation = panels[index].animate([
-          { opacity: .3, transform: 'translateY(5px)' },
-          { opacity: 1, transform: 'translateY(0)' },
-        ], { duration: 260, easing: 'ease-out' });
-      }
-    }
-
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', (event) => {
-        if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-        event.preventDefault();
-        selectTab(index);
-      });
-      tab.addEventListener('keydown', (event) => {
-        if (event.ctrlKey || event.metaKey || event.altKey) return;
-        let next;
-        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
-        else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
-        else if (event.key === 'Home') next = 0;
-        else if (event.key === 'End') next = tabs.length - 1;
-        else if (event.key === ' ') next = index;
-        else return;
-        event.preventDefault();
-        selectTab(next, true);
-      });
-    });
-    selectTab(0, false, false);
+  function resetMotion() {
+    cancelAnimationFrame(frame); frame=0;
+    px=py=tx=ty=0;
+    root.style.setProperty('--qh-x','0px');
+    root.style.setProperty('--qh-y','0px');
+    root.style.setProperty('--qh-scroll','0px');
+    root.style.setProperty('--qh-rotation','0deg');
   }
-
-  // Base styles are always visible; animations never gate access to content.
-  function enter(element, delay = 0) {
-    if (motionPreference.matches || typeof element.animate !== 'function') return;
-    const animation = element.animate([
-      { opacity: 0, transform: 'translateY(18px)' },
-      { opacity: 1, transform: 'translateY(0)' },
-    ], {
-      duration: 620,
-      delay,
-      easing: 'cubic-bezier(.2, .7, .2, 1)',
-      fill: 'backwards',
-    });
-    runningAnimations.add(animation);
-    const release = () => runningAnimations.delete(animation);
-    animation.addEventListener('finish', release, { once: true });
-    animation.addEventListener('cancel', release, { once: true });
+  function syncMotion() {
+    root.dataset.motion=paused?'off':'on';
+    motionButton.setAttribute('aria-pressed',String(!paused));
+    motionButton.querySelector('[data-qh-motion-text]').textContent=paused?'Motion off':'Motion on';
+    motionButton.querySelector('[data-motion-symbol]').textContent=paused?'▶':'Ⅱ';
+    motionButton.disabled=reduce.matches;
+    motionButton.setAttribute('aria-label', reduce.matches ? 'Motion follows your reduced-motion preference' : paused ? 'Enable motion' : 'Pause motion');
+    if (paused) { animations.forEach(a=>a.cancel()); resetMotion(); }
   }
-
-  document.querySelectorAll('[data-hero-enter]').forEach((element, index) => {
-    enter(element, Math.min(index * 55, 330));
+  function moveFrame() {
+    frame=0;
+    if (paused || document.hidden) return;
+    px+=(tx-px)*.12; py+=(ty-py)*.12;
+    root.style.setProperty('--qh-x',px.toFixed(2)+'px');
+    root.style.setProperty('--qh-y',py.toFixed(2)+'px');
+    root.style.setProperty('--qh-rotation',(px*.075).toFixed(2)+'deg');
+    if (Math.abs(tx-px)+Math.abs(ty-py)>.03) frame=requestAnimationFrame(moveFrame);
+  }
+  stage.addEventListener('pointermove',event=>{
+    if(paused || !pointer.matches || event.pointerType==='touch') return;
+    const rect=stage.getBoundingClientRect();
+    tx=((event.clientX-rect.left)/rect.width-.5)*15;
+    ty=((event.clientY-rect.top)/rect.height-.5)*8;
+    if(!frame) frame=requestAnimationFrame(moveFrame);
+  },{passive:true});
+  stage.addEventListener('pointerleave',()=>{tx=ty=0;if(!paused&&!frame)frame=requestAnimationFrame(moveFrame);});
+  motionButton.addEventListener('click',()=>{paused=!paused;syncMotion();});
+  root.querySelector('[data-qh-replay]').addEventListener('click',()=>{
+    root.scrollIntoView({behavior:reduce.matches?'instant':'smooth',block:'start'});
+    clearTimeout(replayTimer);
+    if(!reduce.matches) {paused=false;syncMotion();}
+    replayTimer=setTimeout(intro,350);
   });
-
-  if (!motionPreference.matches && 'IntersectionObserver' in window) {
-    revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          enter(entry.target);
-          revealObserver.unobserve(entry.target);
+  root.querySelectorAll('a[href^="#"]').forEach(link=>{
+    link.addEventListener('click',event=>{
+      const target=document.getElementById(link.getAttribute('href').slice(1));
+      if(target){event.preventDefault();target.scrollIntoView({behavior:reduce.matches?'instant':'smooth',block:'start'});}
+    });
+  });
+  if('IntersectionObserver' in window){
+    let started=false;
+    const heroObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting&&!started){started=true;document.fonts ? document.fonts.ready.then(intro) : intro();}
+        if(!paused&&entry.isIntersecting){
+          const clipped=Math.max(0,entry.intersectionRect.top-entry.boundingClientRect.top);
+          const progress=Math.min(1,clipped/Math.max(1,entry.boundingClientRect.height));
+          root.style.setProperty('--qh-scroll',(-progress*35).toFixed(2)+'px');
         }
       });
-    }, { threshold: 0, rootMargin: '0px 0px -32px 0px' });
-    // Reveal small groups, not entire case studies taller than a mobile screen.
-    document.querySelectorAll([
-      '[data-reveal]:not(.project)',
-      '.project[data-reveal] .project-heading',
-      '.project[data-reveal] .project-story',
-      '.seahorse-intro',
-      '.role-detail',
-    ].join(',')).forEach((element) => revealObserver.observe(element));
-  }
-
-  function sceneCanMove() {
-    return gallery && userMotionEnabled && !motionPreference.matches && sceneVisible && !sceneFocused && !document.hidden;
-  }
-
-  function stopScene(reset = false) {
-    window.cancelAnimationFrame(sceneFrame);
-    sceneFrame = 0;
-    previousFrameTime = 0;
-    if (!reset || !gallery) return;
-    targetX = targetY = currentX = currentY = 0;
-    gallery.style.setProperty('--scene-rx', '0deg');
-    gallery.style.setProperty('--scene-ry', '0deg');
-    gallery.style.setProperty('--scene-lift', '0px');
-  }
-
-  function animateScene(timestamp) {
-    sceneFrame = 0;
-    if (!sceneCanMove()) return;
-    const elapsed = previousFrameTime ? Math.min(timestamp - previousFrameTime, 64) : 16;
-    previousFrameTime = timestamp;
-    sceneTime += elapsed;
-    const ease = 1 - Math.exp(-elapsed / 150);
-    currentX += (targetX - currentX) * ease;
-    currentY += (targetY - currentY) * ease;
-    const strength = compactScene.matches ? .35 : 1;
-    const rotateX = (-currentY * 1.5 + Math.sin(sceneTime / 4300) * .35) * strength;
-    const rotateY = (currentX * 2 + Math.sin(sceneTime / 5800) * .4) * strength;
-    const lift = Math.sin(sceneTime / 3400) * 2 * strength;
-    gallery.style.setProperty('--scene-rx', `${rotateX.toFixed(3)}deg`);
-    gallery.style.setProperty('--scene-ry', `${rotateY.toFixed(3)}deg`);
-    gallery.style.setProperty('--scene-lift', `${lift.toFixed(3)}px`);
-    sceneFrame = window.requestAnimationFrame(animateScene);
-  }
-
-  function syncSceneMotion() {
-    if (!gallery) return;
-    const enabled = userMotionEnabled && !motionPreference.matches;
-    gallery.classList.toggle('is-motion-off', !enabled);
-    if (motionToggle) {
-      motionToggle.hidden = false;
-      motionToggle.disabled = motionPreference.matches;
-      motionToggle.setAttribute('aria-pressed', String(enabled));
-      motionToggle.setAttribute('aria-label', motionPreference.matches ? 'Hero motion follows your reduced-motion preference' : enabled ? 'Pause hero motion' : 'Enable hero motion');
-      const label = motionToggle.querySelector('[data-motion-label]');
-      const symbol = motionToggle.querySelector('[aria-hidden="true"]');
-      if (label) label.textContent = motionPreference.matches ? 'Reduced motion' : enabled ? 'Motion on' : 'Motion off';
-      if (symbol) symbol.textContent = enabled ? 'Ⅱ' : '▶';
-    }
-    if (sceneCanMove()) {
-      if (!sceneFrame) sceneFrame = window.requestAnimationFrame(animateScene);
-    } else {
-      stopScene(!enabled || sceneFocused);
+    },{threshold:Array.from({length:21},(_,i)=>i/20)});
+    heroObserver.observe(stage);
+    const reveal=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          play(entry.target,[{opacity:.25,transform:'translateY(28px)'},{opacity:1,transform:'translateY(0)'}],{duration:720,easing:'cubic-bezier(.16,1,.3,1)'});
+          reveal.unobserve(entry.target);
+        }
+      });
+    },{threshold:.12});
+    root.querySelectorAll('[data-qh-reveal]').forEach(el=>reveal.observe(el));
+  }else{intro();}
+  reduce.addEventListener('change',()=>{paused=reduce.matches;syncMotion();});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)resetMotion();});
+  let scrollFrame=0;
+  const scrollBar=document.getElementById('scrollProgress');
+  function updateScroll(){
+    scrollFrame=0;
+    const max=document.documentElement.scrollHeight-window.innerHeight;
+    if(scrollBar) scrollBar.style.transform='scaleX('+Math.min(1,Math.max(0,max>0?window.scrollY/max:0))+')';
+    if(!paused){
+      const box=stage.getBoundingClientRect();
+      const shift=Math.max(0,Math.min(1,-box.top/Math.max(1,box.height)));
+      root.style.setProperty('--qh-scroll',(-shift*42).toFixed(2)+'px');
     }
   }
-
-  if (gallery) {
-    gallery.addEventListener('pointermove', (event) => {
-      if (!sceneCanMove() || !finePointer.matches || event.pointerType === 'touch') return;
-      if (!sceneBounds) sceneBounds = gallery.getBoundingClientRect();
-      if (!sceneBounds.width || !sceneBounds.height) return;
-      targetX = Math.max(-1, Math.min(1, ((event.clientX - sceneBounds.left) / sceneBounds.width - .5) * 2));
-      targetY = Math.max(-1, Math.min(1, ((event.clientY - sceneBounds.top) / sceneBounds.height - .5) * 2));
-      gallery.style.setProperty('--shine-x', `${(50 + targetX * 40).toFixed(1)}%`);
-      gallery.style.setProperty('--shine-y', `${(50 + targetY * 40).toFixed(1)}%`);
-    }, { passive: true });
-    gallery.addEventListener('pointerleave', () => { targetX = targetY = 0; sceneBounds = null; });
-    gallery.addEventListener('pointercancel', () => { targetX = targetY = 0; sceneBounds = null; });
-    sceneSurface?.addEventListener('focusin', () => { sceneFocused = true; syncSceneMotion(); });
-    sceneSurface?.addEventListener('focusout', (event) => {
-      if (event.relatedTarget && sceneSurface.contains(event.relatedTarget)) return;
-      sceneFocused = false;
-      syncSceneMotion();
-    });
-    motionToggle?.addEventListener('click', () => {
-      if (motionPreference.matches) return;
-      userMotionEnabled = !userMotionEnabled;
-      syncSceneMotion();
-    });
-    if ('IntersectionObserver' in window) {
-      const sceneObserver = new IntersectionObserver((entries) => {
-        sceneVisible = entries.some((entry) => entry.isIntersecting);
-        syncSceneMotion();
-      }, { threshold: 0 });
-      sceneObserver.observe(gallery);
-    }
-    document.addEventListener('visibilitychange', syncSceneMotion);
-    window.addEventListener('pagehide', () => stopScene());
-    window.addEventListener('pageshow', syncSceneMotion);
-    syncSceneMotion();
-  }
-
-  function updateProgress() {
-    progressFrame = 0;
-    if (!progress) return;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const value = max > 0 ? window.scrollY / max : 0;
-    progress.style.transform = `scaleX(${Math.min(1, Math.max(0, value)).toFixed(4)})`;
-  }
-
-  function queueProgress() {
-    sceneBounds = null;
-    if (!progressFrame) progressFrame = window.requestAnimationFrame(updateProgress);
-  }
-
-  function onMotionChange() {
-    syncSceneMotion();
-    if (!motionPreference.matches) return;
-    panelAnimation?.cancel();
-    runningAnimations.forEach((animation) => animation.cancel());
-    runningAnimations.clear();
-    if (revealObserver) revealObserver.disconnect();
-  }
-
-  window.addEventListener('scroll', queueProgress, { passive: true });
-  window.addEventListener('resize', queueProgress, { passive: true });
-  window.addEventListener('load', queueProgress);
-  if (typeof motionPreference.addEventListener === 'function') {
-    motionPreference.addEventListener('change', onMotionChange);
-    finePointer.addEventListener('change', () => { targetX = targetY = 0; });
-    compactScene.addEventListener('change', () => { sceneBounds = null; syncSceneMotion(); });
-  }
-  updateProgress();
+  const queueScroll=()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(updateScroll);};
+  window.addEventListener('scroll',queueScroll,{passive:true});
+  window.addEventListener('resize',queueScroll,{passive:true});
+  window.addEventListener('pagehide',resetMotion);
+  updateScroll();
+  syncMotion();
 })();
